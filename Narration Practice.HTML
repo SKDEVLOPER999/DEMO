@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC English Narration Practice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold">Narration Practice</h1>
+                <p class="text-indigo-200 text-sm">HSC English - Board Questions (2016-2017)</p>
+            </div>
+            <div class="text-sm bg-indigo-700 px-3 py-1 rounded-full">
+                15 Exercises
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-8 w-full space-y-6">
+        
+        <!-- Controls -->
+        <div class="flex justify-end space-x-2 mb-4">
+            <button onclick="expandAll()" class="text-sm bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg shadow-sm transition">
+                Expand All Answers
+            </button>
+            <button onclick="collapseAll()" class="text-sm bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg shadow-sm transition">
+                Hide All Answers
+            </button>
+        </div>
+
+        <!-- Exercise Container -->
+        <div id="exercises-container" class="space-y-6">
+            <!-- Content will be injected by JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center text-sm">
+            <p>&copy; 2025 Narration Practice Tool. Based on uploaded study materials.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data derived from the PDF content
+        const exercises = [
+            {
+                id: 1,
+                board: "D.B. 2016",
+                question: `"Where do you come from?" I asked him. "From San Carlos," he said, and smiled. "I was taking care of animals," "oh," I said, not quite understanding, "yes," he said, "I stayed, you see, taking care of animals. I was the last one to leave the town of San Carlos."`,
+                answer: `I asked him where he came from. He replied that he came from San Carlos and smiled. He added that he had been taking care of animals. I exclaimed without quite understanding. He said again that he had stayed taking care of animals. He also said that he had been the last one to leave the town of San Carlos.`
+            },
+            {
+                id: 2,
+                board: "CO.B. 2016",
+                question: `One day Hazrat Omar (R) became shocked to see the sufferings of a woman and said, "Where do you live?" The woman said, "I live in a poor hut south end to this town. I'm hungry but there is no food in my house. Will you give me something to eat?" Hazrat Omar (R) said, "Go back home. I'm coming with food and money for you."`,
+                answer: `One day Hazrat Omar (R) became shocked to see the sufferings of a woman and asked where she lived. The woman replied that she lived in a poor hut south end to that town. She added that she was hungry but there was no food in her house. She also asked if he would give her something to eat. Hazrat Omar (R) told her to go back home. He added that he was coming with food and money for her.`
+            },
+            {
+                id: 3,
+                board: "R.B. 2016",
+                question: `"Have you cut your nails short?" The teacher said to Maruf. "No I've forgotten sir," said Maruf. "That's very bad. You must be more careful about neatness and cleanliness. By doing so, you can prevent diarrhoea and some other diseases too," said the teacher.`,
+                answer: `The teacher asked Maruf if he (M) had cut his (M) nails short. Maruf replied in the negative and respectfully said that he (M) had forgotten. The teacher said that that was very bad. He (T) told him (M) that he (M) had to be more careful about neatness and cleanliness. He added that by doing so, he (M) could prevent diarrhoea and some other diseases too.`
+            },
+            {
+                id: 4,
+                board: "J.B. 2016",
+                type: "Indirect to Direct",
+                question: `I told the rickshaw puller that he carried me a long way. Then I asked him how much I should pay him. I further asked him if fifty taka would do. He replied that anything was all right.`,
+                answer: `I said to the rickshaw puller, "You have carried me a long way. How much should I pay you? Will fifty taka do?" He replied, "Anything is all right."`
+            },
+            {
+                id: 5,
+                board: "S.B. 2016",
+                type: "Indirect to Direct",
+                question: `Once I asked a little girl what her mother's name was. She replied that she could remember her mother's name but she would not tell me that. She added that she did not tell her mother's name to anyone whom she didn't know. I exclaimed with admiration that she was a very clever girl.`,
+                answer: `Once I said to a little girl, "What is your mother's name?" She said, "I can remember my mother's name, but I will not tell you that. I do not tell my mother's name to anyone whom I don't know." I said, "What a clever girl you are!"`
+            },
+            {
+                id: 6,
+                board: "B.B. 2016",
+                question: `"Do you know Bangladesh Open University offers an English self learning course?" Sejan said to Shawan. "Yes, I have heard it from my father who works as a tutor of the course. It is a six-month course known as CELP" said Shawan.`,
+                answer: `Sejan asked Shawan If he (Shawan) knew Bangladesh Open University offered an English self-learning course. Shawan replied in the affirmative that he (Shawan) had heard it from his (Shawan) father who worked as a tutor of the course. He (Shawan) added that it was a six month course known as CELP.`
+            },
+            {
+                id: 7,
+                board: "Ch.B. 2016",
+                question: `"Why are your children crying, my daughter?" said the Caliph. "They have been starving" said the woman. "Have you none else in the world?" "My husband died some months ago. He left them neither money nor any property. So they are in great distress. They have to starve sometimes." "Oh! Let me see, how I can help you?" said the Caliph.`,
+                answer: `Addressing the woman as his daughter the Caliph asked why her children were crying. The woman replied that they had been starving. The Caliph again asked if she had none else in the world. The woman replied that her husband had died some months ago. She added that he (h) had left them neither money nor property. So, they were in great distress. She also said that they had to starve sometimes. The Caliph exclaimed with sorrow and said that he might be allowed to see how he could help them.`
+            },
+            {
+                id: 8,
+                board: "Dj.B. 2016 + CO.B. 2017",
+                question: `"Have you saved something for future?" said the rich man. "No," said the cobbler. "I am happy with the present and think little about tomorrow." "No, that wouldn't do," said the rich man. "I like to see you above want. Have this money and keep it."`,
+                answer: `The rich man asked the cobbler if he (c) had saved something for future. The cobbler replied in the negative that he was happy with the present and thought little about the next day. The rich man said in the negative that it would not do. He (r) added that he (r) liked to see him (c) above want. He (r) also said to have that money and keep it.`
+            },
+            {
+                id: 9,
+                board: "D.B. 2017",
+                question: `"Follow my example," she said as we shook hands, "and never eat more than one thing for luncheon." "I'll do better than that," I retorted. "I'll eat nothing for dinner to-night." "Humorist," she cried gaily, jumping into a cab.`,
+                answer: `As we shook hands, she asked me to follow her example and suggested me never to eat more than one thing for luncheon. I retorted that I would do better than that. I also said that I would eat nothing for dinner that night. Jumping into a cab, she cried me gaily that I was a humorist.`
+            },
+            {
+                id: 10,
+                board: "R.B. 2017",
+                question: `"Whose picture is it?" I asked. "A little girl's of course," said grandmother. "Can't you tell?" "Yes, but do you know the girl?" "Yes, I knew her." Said Granny "but she was very wicked girl and I should't tell you about her."`,
+                answer: `I asked my grandmother whose picture it was. Grandmother emphatically said that it was a little girl. Then she asked me if I could not tell. I replied that I could. I again asked whether she knew the girl. Granny said that she had known her and added that the girl had been a very wicked one and she should have not told me about her.`
+            },
+            {
+                id: 11,
+                board: "Dj.B. 2017",
+                question: `He said to me, "I am very sorry to trouble you, but I shall be much obliged if you will kindly lend me your dictionary." "I shall be very glad to be of service to you, and you are welcome to any of my books that you think of use to you," said I.`,
+                answer: `He humbly apologized for troubling me and said that he would be much obliged if I would lend him my dictionary. I said that I would be very glad to be of service to him and added that he was welcome to any of my books that he thought of use to him.`
+            },
+            {
+                id: 12,
+                board: "J.B. 2017",
+                type: "Indirect to Direct",
+                question: `The teacher asked the students if they heard the name of Aesop. The students respectfully replied that they had not and asked the teacher who he had been. The teacher advised them to listen to his lecture attentively and they would be able to know about him. He also exclaimed with wonder that his fables were very interesting and instructive.`,
+                answer: `The teacher said, "Have you heard the name of Aesop?". The students said, "No, sir, we have not. Who was he?" The teacher said, "Listen to my lecture attentively and you will be able to know about him. How interesting and instructive his fables are!"`
+            },
+            {
+                id: 13,
+                board: "Ch.B. 2017",
+                type: "Indirect to Direct",
+                question: `The witness told the international Crimes Tribunal that he had suddenly heard a gunshot gone towards the door. He added that he had seen many Al-Badr men and the members of the Pakistani Army on his house premises. The judge asked him if he had recognized some of the Al-Badr men. The witness answered that he could recognize one, Hamid, in his village who had brought the members of the Pakistani Army to the village.`,
+                answer: `"I suddenly heard a gunshot and went towards the door," the witness said to the International Crimes Tribunal. "I saw many Al-Badr men and members of the Pakistani Army on my house premises." "Did you recognize some of the Al-Badr men?" The judge said to him. "Yes, I could recognize one, Hamid, in my village who brought the members of the Pakistan Army to the village," the witness answered.`
+            },
+            {
+                id: 14,
+                board: "S.B. 2017",
+                question: `"Why are you crying, my daughter? Do you have any problem?" asked the passer by. "I am crying because I have none to look after me," said the street child. "Are you hungry?" "Yes, I am," said the boy.`,
+                answer: `The passer-by asked the street child why he was crying and if he had any problem. The street child replied that he was crying because he had none to look after him. The passer-by then asked the boy if he was hungry and the street child replied that he was.`
+            },
+            {
+                id: 15,
+                board: "B.B. 2017",
+                question: `"Please, give me your English grammer book," said Fahim. "I cannot give it," said Arman. "I have to take it with me in the class." "I shall return the book before the class starts," said Fahim. "Take it," said Arman. "Thanks," said Fahim.`,
+                answer: `Fahim requested Arman to give him his English grammer book. Arman replied that he could not give it as he had to take it with him in the class. Then Fahim told Arman that he would return the book before the class started. Next, Arman told Fahim to take the book. In response, Fahim thanked him.`
+            }
+        ];
+
+        const container = document.getElementById('exercises-container');
+
+        // Render function
+        function renderExercises() {
+            container.innerHTML = exercises.map(ex => `
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100">
+                    <div class="bg-gray-50 px-6 py-3 border-b border-gray-100 flex justify-between items-center">
+                        <span class="font-semibold text-indigo-600">${ex.id}. ${ex.board}</span>
+                        ${ex.type ? `<span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-md font-medium">${ex.type}</span>` : ''}
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-4">
+                            <h3 class="text-sm uppercase tracking-wide text-gray-400 font-bold mb-2">Question</h3>
+                            <p class="text-gray-800 leading-relaxed font-medium font-serif bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500">
+                                ${ex.question}
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button onclick="toggleAnswer(${ex.id})" 
+                                id="btn-${ex.id}"
+                                class="flex items-center space-x-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 focus:outline-none transition">
+                                <i class="fas fa-eye"></i>
+                                <span>Show Answer</span>
+                            </button>
+                            
+                            <div id="ans-${ex.id}" class="hidden mt-3 fade-in">
+                                <h3 class="text-sm uppercase tracking-wide text-green-600 font-bold mb-2">Answer</h3>
+                                <p class="text-gray-700 bg-green-50 p-4 rounded-lg border-l-4 border-green-500 leading-relaxed">
+                                    ${ex.answer}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAnswer(id) {
+            const ansDiv = document.getElementById(`ans-${id}`);
+            const btn = document.getElementById(`btn-${id}`);
+            
+            if (ansDiv.classList.contains('hidden')) {
+                ansDiv.classList.remove('hidden');
+                btn.innerHTML = `<i class="fas fa-eye-slash"></i> <span>Hide Answer</span>`;
+                btn.classList.add('text-gray-500');
+            } else {
+                ansDiv.classList.add('hidden');
+                btn.innerHTML = `<i class="fas fa-eye"></i> <span>Show Answer</span>`;
+                btn.classList.remove('text-gray-500');
+            }
+        }
+
+        function expandAll() {
+            exercises.forEach(ex => {
+                const ansDiv = document.getElementById(`ans-${ex.id}`);
+                const btn = document.getElementById(`btn-${ex.id}`);
+                ansDiv.classList.remove('hidden');
+                btn.innerHTML = `<i class="fas fa-eye-slash"></i> <span>Hide Answer</span>`;
+                btn.classList.add('text-gray-500');
+            });
+        }
+
+        function collapseAll() {
+            exercises.forEach(ex => {
+                const ansDiv = document.getElementById(`ans-${ex.id}`);
+                const btn = document.getElementById(`btn-${ex.id}`);
+                ansDiv.classList.add('hidden');
+                btn.innerHTML = `<i class="fas fa-eye"></i> <span>Show Answer</span>`;
+                btn.classList.remove('text-gray-500');
+            });
+        }
+
+        // Initialize
+        renderExercises();
+    </script>
+</body>
+</html>
