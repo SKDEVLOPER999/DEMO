@@ -1,4 +1,4 @@
 {
-  "enabled": true,
-  "message": "Mikhmon service is active."
+  "enabled": false,
+  "message": "Mikhmon has been disabled by administrator."
 }
